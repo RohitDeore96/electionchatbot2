@@ -19,5 +19,4 @@ async def chat_with_agent(request: ChatRequest):
     except Exception as e:
         raise HTTPException(
             status_code=500,
-            detail=f"Failed to generate response: {
-                str(e)}")
+            detail=f"Failed to generate response: {str(e)}")
