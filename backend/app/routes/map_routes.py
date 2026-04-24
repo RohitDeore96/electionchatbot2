@@ -21,7 +21,7 @@ async def get_map_key(response: Response) -> Dict[str, str]:
 
 
 @router.get("/geocode")
-async def geocode_address(address: str, response: Response) -> Dict[str, float]:
+async def geocode_address(address: str, response: Response) -> Dict[str, float]:  # noqa: E501
     """
     Geocode address using Google Maps API.
 

@@ -1,3 +1,5 @@
+from unittest.mock import patch
+
 def test_health_check(client):
     response = client.get("/health")
     assert response.status_code == 200
@@ -9,7 +11,6 @@ def test_get_voter_info(client):
     assert "address" in response.json()
 
 
-from unittest.mock import patch
 
 
 @patch("app.routes.ai_routes.ai_agent.get_response")

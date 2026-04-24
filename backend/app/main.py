@@ -1,5 +1,7 @@
 import os
-from fastapi import FastAPI, Request
+import logging
+from typing import Callable, Awaitable, Dict
+from fastapi import FastAPI, Request, Response
 from fastapi.staticfiles import StaticFiles
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.middleware.gzip import GZipMiddleware
@@ -12,13 +14,12 @@ from slowapi.middleware import SlowAPIMiddleware
 
 app = FastAPI(
     title="Election Assistant API", docs_url=None, redoc_url=None, openapi_url=None
-)
+)  # noqa: E501
 app.state.limiter = limiter
 app.add_exception_handler(RateLimitExceeded, _rate_limit_exceeded_handler)
 app.add_middleware(SlowAPIMiddleware)
 app.add_middleware(GZipMiddleware, minimum_size=1000)
 
-import logging
 
 try:
     import google.cloud.logging
@@ -42,9 +43,6 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-
-from typing import Callable, Awaitable, Dict
-from fastapi import Response
 
 
 @app.middleware("http")
@@ -76,19 +74,19 @@ def health_check() -> Dict[str, str]:
     Perform a health check to verify the API is active.
 
     Returns:
-        Dict[str, str]: A dictionary containing the health status and a message.
+        Dict[str, str]: A dictionary containing the health status and a message.  # noqa: E501
     """
     return {"status": "healthy", "message": "Election Assistant Backend Active"}
 
 
-# Mount React Frontend (MUST be after API routes to avoid catching /api requests)
+# Mount React Frontend (MUST be after API routes to avoid catching /api requests)  # noqa: E501
 frontend_path = "../frontend/dist"
 if os.path.exists(frontend_path):
-    app.mount("/", StaticFiles(directory=frontend_path, html=True), name="static")
+    app.mount("/", StaticFiles(directory=frontend_path, html=True), name="static")  # noqa: E501
 
 if __name__ == "__main__":  # pragma: no cover
     import os
     import uvicorn
 
-    # Hardcode bind to 0.0.0.0:8080 as requested to avoid Cloud Run conflicts
+    # Hardcode bind to 0.0.0.0:8080 as requested to avoid Cloud Run conflicts  # noqa: E501
     uvicorn.run(app, host="0.0.0.0", port=port)

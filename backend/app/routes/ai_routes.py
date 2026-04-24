@@ -1,4 +1,4 @@
-from fastapi import APIRouter, HTTPException, Request, BackgroundTasks
+from fastapi import APIRouter, Request, BackgroundTasks
 from pydantic import BaseModel, Field
 from app.services.vertex_ai_agent import VertexAIAgent
 from app.utils.limiter import limiter
@@ -38,7 +38,7 @@ def log_chat_to_firestore(message: str, timestamp: datetime) -> None:
     """
     if db:
         try:
-            db.collection("chat_logs").add({"message": message, "timestamp": timestamp})
+            db.collection("chat_logs").add({"message": message, "timestamp": timestamp})  # noqa: E501
         except Exception as e:
             logger.error(f"Failed to log chat to Firestore: {e}")
     else:

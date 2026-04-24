@@ -1,6 +1,6 @@
 """Storage utility for Google Cloud Storage."""
 
-from typing import Optional
+
 import logging
 
 try:
@@ -35,7 +35,7 @@ def upload_to_gcs(
         bucket = storage_client.bucket(bucket_name)
         blob = bucket.blob(destination_blob_name)
         blob.upload_from_filename(source_file_name)
-        logger.info(f"File %s uploaded to %s.", source_file_name, destination_blob_name)
+        logger.info("File %s uploaded to %s.", source_file_name, destination_blob_name)  # noqa: E501
         return True
     except Exception as e:
         logger.error(f"Failed to upload to GCS: {e}")
