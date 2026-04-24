@@ -37,7 +37,7 @@ def health_check():
         "status": "healthy",
         "message": "Election Assistant Backend Active"}
 
-if __name__ == "__main__":
+if __name__ == "__main__":  # pragma: no cover
     import os
     import uvicorn
     # Cloud Run provides the port via environment variable. Default to 8080.
