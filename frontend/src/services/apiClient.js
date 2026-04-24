@@ -11,3 +11,8 @@ export const sendChatMessage = async (message) => {
     });
     return res.json();
 };
+
+export const fetchMapKey = async () => {
+    const res = await fetch(`/api/map/key`);
+    return res.json();
+};

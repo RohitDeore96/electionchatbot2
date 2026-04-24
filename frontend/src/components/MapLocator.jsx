@@ -1,11 +1,36 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Search, MapPin } from 'lucide-react';
-import { fetchVoterInfo } from '../services/apiClient';
+import { fetchVoterInfo, fetchMapKey } from '../services/apiClient';
+import { GoogleMap, useJsApiLoader, Marker } from '@react-google-maps/api';
+
+const mapContainerStyle = {
+  width: '100%',
+  height: '400px'
+};
+
+const center = {
+  lat: 38.8977,
+  lng: -77.0365
+};
 
 export default function MapLocator() {
   const [address, setAddress] = useState('');
   const [result, setResult] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [apiKey, setApiKey] = useState(null);
+
+  useEffect(() => {
+    fetchMapKey().then(data => {
+      if (data && data.key) {
+        setApiKey(data.key);
+      }
+    }).catch(err => console.error("Failed to load map key", err));
+  }, []);
+
+  const { isLoaded } = useJsApiLoader({
+    id: 'google-map-script',
+    googleMapsApiKey: apiKey || "",
+  });
 
   const handleSearch = async (e) => {
     e.preventDefault();
@@ -72,15 +97,25 @@ export default function MapLocator() {
           </div>
         )}
 
-        {/* Google Maps Placeholder */}
         <div 
-          className="w-full h-64 bg-gray-100 rounded-lg border-2 border-dashed border-gray-300 flex items-center justify-center relative overflow-hidden"
-          aria-label="Interactive map placeholder"
+          className="w-full bg-gray-100 rounded-lg border-2 border-dashed border-gray-300 flex items-center justify-center relative overflow-hidden"
+          aria-label="Interactive map"
+          style={{ height: '400px' }}
         >
-          <div className="text-center p-4">
-            <MapPin className="mx-auto h-8 w-8 text-gray-400 mb-2" />
-            <p className="text-sm text-gray-500">Google Maps Canvas will render here</p>
-          </div>
+          {isLoaded && apiKey ? (
+            <GoogleMap
+              mapContainerStyle={mapContainerStyle}
+              center={center}
+              zoom={10}
+            >
+              <Marker position={center} />
+            </GoogleMap>
+          ) : (
+            <div className="text-center p-4">
+              <MapPin className="mx-auto h-8 w-8 text-gray-400 mb-2" />
+              <p className="text-sm text-gray-500">Loading Google Maps...</p>
+            </div>
+          )}
         </div>
       </div>
     </section>
