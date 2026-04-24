@@ -54,7 +54,8 @@ export default function GeminiChatbot() {
       
       <div 
         role="log" 
-        aria-live="polite" 
+        aria-live="assertive" 
+        aria-atomic="true"
         className="flex-1 overflow-y-auto p-4 space-y-4 bg-gray-50"
       >
         {messages.map((m, i) => {
@@ -76,7 +77,7 @@ export default function GeminiChatbot() {
         
         {isTyping && (
           <div className="flex justify-start" role="status" aria-live="polite">
-            <div className="bg-white border border-black text-black rounded-2xl rounded-tl-sm px-4 py-3 shadow-sm flex items-center space-x-1">
+            <div role="progressbar" aria-busy="true" className="bg-white border border-black text-black rounded-2xl rounded-tl-sm px-4 py-3 shadow-sm flex items-center space-x-1">
               <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: '0ms' }}></div>
               <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: '150ms' }}></div>
               <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: '300ms' }}></div>

@@ -36,7 +36,7 @@ civic_info_api_key = os.environ.get("CIVIC_INFO_API_KEY", "")
 # Security: Strict CORS
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:5173", "http://0.0.0.0:5173"],
+    allow_origins=["http://localhost:5173", "https://YOUR_ACTUAL_FRONTEND_URL"],
     allow_credentials=True,
     allow_methods=["GET", "POST", "OPTIONS"],
     allow_headers=["*"],
