@@ -10,7 +10,7 @@ LOCATION = os.environ.get("VERTEX_AI_LOCATION", "us-central1")
 
 
 class VertexAIAgent:
-    def __init__(self):
+    def __init__(self) -> None:
         self.project = os.environ.get("VERTEX_AI_PROJECT_ID") or os.environ.get(
             "GOOGLE_CLOUD_PROJECT", "electionchatbot2"
         )
@@ -24,7 +24,7 @@ class VertexAIAgent:
         self.model = None
         self.init_error = None
 
-    def _init_model(self):
+    def _init_model(self) -> None:
         if not self.model:
             try:
                 vertexai.init(project=self.project, location=self.location)

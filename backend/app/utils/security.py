@@ -26,5 +26,6 @@ async def add_security_headers(
         "max-age=31536000; includeSubDomains"
     )
     response.headers["Permissions-Policy"] = "geolocation=(self), microphone=()"
+    response.headers["Referrer-Policy"] = "strict-origin-when-cross-origin"
     response.headers["Server"] = "Hidden"
     return response

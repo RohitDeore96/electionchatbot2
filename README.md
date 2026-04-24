@@ -4,7 +4,7 @@
 This is an AI-powered Election Assistant built with Google **Cloud Run**, FastAPI, React, and **Vertex AI**. It is designed to provide secure, intelligent guidance and streamline the civic engagement process.
 
 ## Features
-* Gemini chatbot for answering election-related queries with neutral, process-oriented guidance. Designed by **Anti-Gravity** leveraging advanced **Prompt Engineering**.
+* Gemini chatbot for answering election-related queries with neutral, process-oriented guidance. Designed by **Anti-Gravity PromptWars** leveraging advanced **Prompt Engineering**.
 * Google Maps polling location integration to help users find where to vote.
 * Strict Content Security Policy (CSP) to ensure robust frontend security.
 
