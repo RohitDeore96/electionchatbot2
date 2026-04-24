@@ -20,7 +20,7 @@ class VertexAIAgent:
             try:
                 vertexai.init(project=self.project, location=self.location)
                 self.model = GenerativeModel(
-                    "gemini-1.5-flash",
+                    "gemini-1.5-flash-002",
                     system_instruction=[self.system_instruction]
                 )
             except Exception as e:
