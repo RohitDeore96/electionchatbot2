@@ -4,8 +4,15 @@ from fastapi.staticfiles import StaticFiles
 from fastapi.middleware.cors import CORSMiddleware
 from app.routes import civic_routes, ai_routes, map_routes
 from app.utils.security import add_security_headers
+from app.utils.limiter import limiter
+from slowapi import _rate_limit_exceeded_handler
+from slowapi.errors import RateLimitExceeded
+from slowapi.middleware import SlowAPIMiddleware
 
 app = FastAPI(title="Election Assistant API")
+app.state.limiter = limiter
+app.add_exception_handler(RateLimitExceeded, _rate_limit_exceeded_handler)
+app.add_middleware(SlowAPIMiddleware)
 
 # Gracefully handle missing environment variables to prevent startup crashes
 port = int(os.environ.get("PORT", 8080))
