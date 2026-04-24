@@ -21,6 +21,11 @@ def test_geocode_address(client):
     assert response.status_code == 200
     assert "lat" in response.json()
 
+def test_get_map_key(client):
+    response = client.get("/api/map/key")
+    assert response.status_code == 200
+    assert "key" in response.json()
+
 @patch('app.routes.ai_routes.ai_agent.get_response')
 def test_chat_with_agent_exception(mock_get_response, client):
     mock_get_response.side_effect = Exception("Test exception")
