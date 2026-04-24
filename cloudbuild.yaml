@@ -21,6 +21,10 @@ steps:
       - '--platform'
       - 'managed'
       - '--allow-unauthenticated'
+      - '--port'
+      - '8080'
+      - '--set-secrets'
+      - 'Maps_API_KEY=Maps_API_KEY:latest,CIVIC_INFO_API_KEY=CIVIC_INFO_API_KEY:latest'
 
 options:
   logging: CLOUD_LOGGING_ONLY

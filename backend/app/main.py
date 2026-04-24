@@ -1,9 +1,15 @@
+import os
 from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
 from app.routes import civic_routes, ai_routes, map_routes
 from app.utils.security import add_security_headers
 
 app = FastAPI(title="Election Assistant API")
+
+# Gracefully handle missing environment variables to prevent startup crashes
+port = int(os.environ.get("PORT", 8080))
+maps_api_key = os.environ.get("Maps_API_KEY", "")
+civic_info_api_key = os.environ.get("CIVIC_INFO_API_KEY", "")
 
 # Security: Strict CORS
 app.add_middleware(
