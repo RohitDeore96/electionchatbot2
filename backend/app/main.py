@@ -10,15 +10,19 @@ from slowapi import _rate_limit_exceeded_handler
 from slowapi.errors import RateLimitExceeded
 from slowapi.middleware import SlowAPIMiddleware
 
-app = FastAPI(title="Election Assistant API", docs_url=None, redoc_url=None, openapi_url=None)
+app = FastAPI(
+    title="Election Assistant API", docs_url=None, redoc_url=None, openapi_url=None
+)
 app.state.limiter = limiter
 app.add_exception_handler(RateLimitExceeded, _rate_limit_exceeded_handler)
 app.add_middleware(SlowAPIMiddleware)
 app.add_middleware(GZipMiddleware, minimum_size=1000)
 
 import logging
+
 try:
     import google.cloud.logging
+
     client = google.cloud.logging.Client()
     client.setup_logging()
 except ImportError:
@@ -42,19 +46,23 @@ app.add_middleware(
 from typing import Callable, Awaitable, Dict
 from fastapi import Response
 
+
 @app.middleware("http")
-async def secure_headers(request: Request, call_next: Callable[[Request], Awaitable[Response]]) -> Response:
+async def secure_headers(
+    request: Request, call_next: Callable[[Request], Awaitable[Response]]
+) -> Response:
     """
     Middleware to apply strict security headers to all HTTP responses.
-    
+
     Args:
         request (Request): The incoming FastAPI request.
         call_next (Callable): The next middleware or route handler.
-        
+
     Returns:
         Response: The modified response containing security headers.
     """
     return await add_security_headers(request, call_next)
+
 
 # Include Routes
 app.include_router(civic_routes.router, prefix="/api/civic", tags=["Civic"])
@@ -66,13 +74,12 @@ app.include_router(map_routes.router, prefix="/api/map", tags=["Maps"])
 def health_check() -> Dict[str, str]:
     """
     Perform a health check to verify the API is active.
-    
+
     Returns:
         Dict[str, str]: A dictionary containing the health status and a message.
     """
-    return {
-        "status": "healthy",
-        "message": "Election Assistant Backend Active"}
+    return {"status": "healthy", "message": "Election Assistant Backend Active"}
+
 
 # Mount React Frontend (MUST be after API routes to avoid catching /api requests)
 frontend_path = "../frontend/dist"
@@ -82,5 +89,6 @@ if os.path.exists(frontend_path):
 if __name__ == "__main__":  # pragma: no cover
     import os
     import uvicorn
+
     # Hardcode bind to 0.0.0.0:8080 as requested to avoid Cloud Run conflicts
     uvicorn.run(app, host="0.0.0.0", port=port)

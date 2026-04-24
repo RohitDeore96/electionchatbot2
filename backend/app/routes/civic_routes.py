@@ -3,15 +3,16 @@ from typing import Dict, Any
 
 router = APIRouter()
 
+
 @router.get("/voter-info")
 async def get_voter_info(address: str, response: Response) -> Dict[str, Any]:
     """
     Fetch voter info from Google Civic API.
-    
+
     Args:
         address (str): The address of the voter.
         response (Response): The FastAPI response object.
-        
+
     Returns:
         Dict[str, Any]: A dictionary containing voter info.
     """
