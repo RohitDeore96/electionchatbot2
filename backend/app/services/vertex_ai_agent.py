@@ -5,10 +5,13 @@ import logging
 
 logger = logging.getLogger(__name__)
 
+MODEL_NAME = os.environ.get("VERTEX_AI_MODEL_NAME", "gemini-2.5-flash")
+LOCATION = os.environ.get("VERTEX_AI_LOCATION", "us-central1")
+
 class VertexAIAgent:
     def __init__(self):
         self.project = os.environ.get("VERTEX_AI_PROJECT_ID") or os.environ.get("GOOGLE_CLOUD_PROJECT", "electionchatbot2")
-        self.location = os.environ.get("VERTEX_AI_LOCATION", "us-central1")
+        self.location = LOCATION
         self.system_instruction = (
             "You are an official Election Assistant. You help users "
             "understand the election process, voting timelines, and polling "
@@ -22,7 +25,7 @@ class VertexAIAgent:
             try:
                 vertexai.init(project=self.project, location=self.location)
                 self.model = GenerativeModel(
-                    "gemini-2.5-flash",
+                    MODEL_NAME,
                     system_instruction=[self.system_instruction]
                 )
             except Exception as e:

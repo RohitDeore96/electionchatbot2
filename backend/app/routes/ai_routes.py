@@ -6,6 +6,7 @@ import logging
 from datetime import datetime, timezone
 import os
 from typing import Dict
+from app.utils.ai_helper import generate_ai_response
 
 logger = logging.getLogger(__name__)
 
@@ -60,13 +61,6 @@ async def chat_with_agent(request: Request, payload: ChatRequest, background_tas
     Raises:
         HTTPException: If generating the AI response fails.
     """
-    try:
-        background_tasks.add_task(log_chat_to_firestore, payload.message, datetime.now(timezone.utc))
-        response_text = ai_agent.get_response(payload.message)
-        return {"response": response_text}
-    except Exception as e:
-        logger.error(f"Failed to generate AI response: {e}")
-        raise HTTPException(
-            status_code=500,
-            detail=f"Failed to generate response: {str(e)}"
-        )
+    background_tasks.add_task(log_chat_to_firestore, payload.message, datetime.now(timezone.utc))
+    response_text = generate_ai_response(ai_agent, payload.message)
+    return {"response": response_text}

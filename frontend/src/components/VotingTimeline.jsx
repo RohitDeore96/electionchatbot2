@@ -1,6 +1,10 @@
 import React, { useState } from 'react';
 import { CheckCircle2, Circle } from 'lucide-react';
 
+/**
+ * Component displaying the voting timeline.
+ * @returns {React.JSX.Element} The rendered VotingTimeline component.
+ */
 export default function VotingTimeline() {
   const [activeStep, setActiveStep] = useState(0);
 
@@ -23,7 +27,7 @@ export default function VotingTimeline() {
   ];
 
   return (
-    <section aria-labelledby="timeline-heading" className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+    <section role="navigation" aria-labelledby="timeline-heading" className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
       <h2 id="timeline-heading" className="text-2xl font-bold text-gray-900 mb-6">Election Timeline</h2>
       <div className="space-y-4">
         {steps.map((step, index) => {

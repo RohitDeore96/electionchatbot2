@@ -2,6 +2,10 @@ import React, { useState, useRef, useEffect } from 'react';
 import { sendChatMessage } from '../services/apiClient';
 import { Send, Bot } from 'lucide-react';
 
+/**
+ * Chatbot component for Gemini AI.
+ * @returns {React.JSX.Element} The rendered GeminiChatbot component.
+ */
 export default function GeminiChatbot() {
   const [input, setInput] = useState('');
   const [messages, setMessages] = useState([
@@ -42,7 +46,7 @@ export default function GeminiChatbot() {
   };
 
   return (
-    <section aria-labelledby="chat-heading" className="bg-white rounded-xl shadow-sm border border-gray-200 flex flex-col h-[600px] lg:h-full min-h-[500px]">
+    <section role="region" aria-labelledby="chat-heading" className="bg-white rounded-xl shadow-sm border border-gray-200 flex flex-col h-[600px] lg:h-full min-h-[500px]">
       <div className="p-4 border-b border-gray-200 bg-neutral-light rounded-t-xl flex items-center">
         <Bot className="w-6 h-6 text-primary mr-2" aria-hidden="true" />
         <h2 id="chat-heading" className="text-xl font-bold text-gray-900">Voter Assistant Chat</h2>
@@ -60,8 +64,8 @@ export default function GeminiChatbot() {
               <div 
                 className={`max-w-[80%] rounded-2xl px-4 py-2 ${
                   isUser 
-                    ? 'bg-primary text-white rounded-tr-sm' 
-                    : 'bg-white border border-gray-200 text-gray-800 rounded-tl-sm shadow-sm'
+                    ? 'bg-black text-white rounded-tr-sm' 
+                    : 'bg-white border border-black text-black rounded-tl-sm shadow-sm'
                 }`}
               >
                 <p className="text-sm whitespace-pre-wrap">{m.text}</p>
@@ -71,8 +75,8 @@ export default function GeminiChatbot() {
         })}
         
         {isTyping && (
-          <div className="flex justify-start">
-            <div className="bg-white border border-gray-200 rounded-2xl rounded-tl-sm px-4 py-3 shadow-sm flex items-center space-x-1">
+          <div className="flex justify-start" role="status" aria-live="polite">
+            <div className="bg-white border border-black text-black rounded-2xl rounded-tl-sm px-4 py-3 shadow-sm flex items-center space-x-1">
               <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: '0ms' }}></div>
               <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: '150ms' }}></div>
               <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: '300ms' }}></div>

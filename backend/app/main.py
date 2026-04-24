@@ -10,7 +10,7 @@ from slowapi import _rate_limit_exceeded_handler
 from slowapi.errors import RateLimitExceeded
 from slowapi.middleware import SlowAPIMiddleware
 
-app = FastAPI(title="Election Assistant API")
+app = FastAPI(title="Election Assistant API", docs_url=None, redoc_url=None, openapi_url=None)
 app.state.limiter = limiter
 app.add_exception_handler(RateLimitExceeded, _rate_limit_exceeded_handler)
 app.add_middleware(SlowAPIMiddleware)
@@ -83,4 +83,4 @@ if __name__ == "__main__":  # pragma: no cover
     import os
     import uvicorn
     # Hardcode bind to 0.0.0.0:8080 as requested to avoid Cloud Run conflicts
-    uvicorn.run(app, host="0.0.0.0", port=8080)
+    uvicorn.run(app, host="0.0.0.0", port=port)

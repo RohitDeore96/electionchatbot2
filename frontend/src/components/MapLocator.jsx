@@ -13,6 +13,12 @@ const center = {
   lng: -77.0365
 };
 
+/**
+ * MapWrapper component for rendering the Google Map.
+ * @param {Object} props - Component props.
+ * @param {string} props.apiKey - Google Maps API Key.
+ * @returns {React.JSX.Element} The rendered GoogleMap component.
+ */
 function MapWrapper({ apiKey }) {
   const { isLoaded } = useJsApiLoader({
     id: 'google-map-script',
@@ -39,6 +45,10 @@ function MapWrapper({ apiKey }) {
   );
 }
 
+/**
+ * MapLocator component for finding polling locations.
+ * @returns {React.JSX.Element} The rendered MapLocator component.
+ */
 export default function MapLocator() {
   const [address, setAddress] = useState('');
   const [result, setResult] = useState(null);
@@ -69,7 +79,7 @@ export default function MapLocator() {
   };
 
   return (
-    <section aria-labelledby="map-locator-heading" className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+    <section role="region" aria-labelledby="map-locator-heading" className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
       <h2 id="map-locator-heading" className="text-2xl font-bold text-gray-900 mb-6">Polling Place Locator</h2>
       
       <form onSubmit={handleSearch} aria-label="Polling location search" className="mb-6">
