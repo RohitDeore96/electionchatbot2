@@ -1,5 +1,6 @@
 import os
 from fastapi import FastAPI, Request
+from fastapi.staticfiles import StaticFiles
 from fastapi.middleware.cors import CORSMiddleware
 from app.routes import civic_routes, ai_routes, map_routes
 from app.utils.security import add_security_headers
@@ -37,9 +38,13 @@ def health_check():
         "status": "healthy",
         "message": "Election Assistant Backend Active"}
 
+# Mount React Frontend (MUST be after API routes to avoid catching /api requests)
+frontend_path = "../frontend/dist"
+if os.path.exists(frontend_path):
+    app.mount("/", StaticFiles(directory=frontend_path, html=True), name="static")
+
 if __name__ == "__main__":  # pragma: no cover
     import os
     import uvicorn
-    # Cloud Run provides the port via environment variable. Default to 8080.
-    port = int(os.environ.get("PORT", 8080))
-    uvicorn.run(app, host="0.0.0.0", port=port)
+    # Hardcode bind to 0.0.0.0:8080 as requested to avoid Cloud Run conflicts
+    uvicorn.run(app, host="0.0.0.0", port=8080)
