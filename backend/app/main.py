@@ -40,7 +40,7 @@ app.include_router(map_routes.router, prefix="/api/map", tags=["Maps"])
 
 
 @app.get("/health")
-def health_check():
+def health_check() -> dict:
     return {
         "status": "healthy",
         "message": "Election Assistant Backend Active"}

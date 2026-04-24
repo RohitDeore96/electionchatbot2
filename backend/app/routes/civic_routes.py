@@ -4,7 +4,7 @@ router = APIRouter()
 
 
 @router.get("/voter-info")
-async def get_voter_info(address: str):
+async def get_voter_info(address: str) -> dict:
     """Fetch voter info from Google Civic API."""
     # Placeholder: Will be wired to Google Civic Information API
     return {"status": "success", "address": address, "elections": []}

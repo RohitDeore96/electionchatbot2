@@ -50,7 +50,7 @@ export default function MapLocator() {
       if (data && data.key) {
         setApiKey(data.key);
       }
-    }).catch(err => console.error("Failed to load map key", err));
+    }).catch(() => { /* Error handled silently */ });
   }, []);
 
   const handleSearch = async (e) => {
@@ -61,7 +61,7 @@ export default function MapLocator() {
         const data = await fetchVoterInfo(address);
         setResult(data);
       } catch (err) {
-        console.error(err);
+        // Error handled silently
       } finally {
         setLoading(false);
       }

@@ -1,7 +1,9 @@
 import vertexai
 from vertexai.generative_models import GenerativeModel
 import os
+import logging
 
+logger = logging.getLogger(__name__)
 
 class VertexAIAgent:
     def __init__(self):
@@ -24,7 +26,7 @@ class VertexAIAgent:
                     system_instruction=[self.system_instruction]
                 )
             except Exception as e:
-                print(f"Warning: Failed to initialize Vertex AI: {e}")
+                logger.error(f"Failed to initialize Vertex AI: {e}")
                 self.init_error = str(e)
                 self.model = None
 
