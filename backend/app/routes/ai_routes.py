@@ -5,10 +5,8 @@ from app.services.vertex_ai_agent import VertexAIAgent
 router = APIRouter()
 ai_agent = VertexAIAgent()
 
-
 class ChatRequest(BaseModel):
     message: str = Field(..., min_length=1, max_length=1000)
-
 
 @router.post("/chat")
 async def chat_with_agent(request: ChatRequest):
@@ -19,4 +17,5 @@ async def chat_with_agent(request: ChatRequest):
     except Exception as e:
         raise HTTPException(
             status_code=500,
-            detail=f"Failed to generate response: {str(e)}")
+            detail=f"Failed to generate response: {str(e)}"
+        )
