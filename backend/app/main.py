@@ -29,8 +29,21 @@ app.add_middleware(
 )
 
 
+from typing import Callable, Awaitable, Dict
+from fastapi import Response
+
 @app.middleware("http")
-async def secure_headers(request: Request, call_next):
+async def secure_headers(request: Request, call_next: Callable[[Request], Awaitable[Response]]) -> Response:
+    """
+    Middleware to apply strict security headers to all HTTP responses.
+    
+    Args:
+        request (Request): The incoming FastAPI request.
+        call_next (Callable): The next middleware or route handler.
+        
+    Returns:
+        Response: The modified response containing security headers.
+    """
     return await add_security_headers(request, call_next)
 
 # Include Routes
@@ -40,7 +53,13 @@ app.include_router(map_routes.router, prefix="/api/map", tags=["Maps"])
 
 
 @app.get("/health")
-def health_check() -> dict:
+def health_check() -> Dict[str, str]:
+    """
+    Perform a health check to verify the API is active.
+    
+    Returns:
+        Dict[str, str]: A dictionary containing the health status and a message.
+    """
     return {
         "status": "healthy",
         "message": "Election Assistant Backend Active"}

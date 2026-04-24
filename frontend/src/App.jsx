@@ -1,7 +1,7 @@
-import React from 'react';
-import MapLocator from './components/MapLocator';
+import React, { Suspense, lazy } from 'react';
 import VotingTimeline from './components/VotingTimeline';
-import GeminiChatbot from './components/GeminiChatbot';
+const MapLocator = lazy(() => import('./components/MapLocator'));
+const GeminiChatbot = lazy(() => import('./components/GeminiChatbot'));
 import './App.css';
 
 function App() {
@@ -14,10 +14,14 @@ function App() {
       <div className="max-w-5xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-8">
         <div className="space-y-8">
           <VotingTimeline />
-          <MapLocator />
+          <Suspense fallback={<div>Loading Map...</div>}>
+            <MapLocator />
+          </Suspense>
         </div>
         <div>
-          <GeminiChatbot />
+          <Suspense fallback={<div>Loading Chatbot...</div>}>
+            <GeminiChatbot />
+          </Suspense>
         </div>
       </div>
     </main>

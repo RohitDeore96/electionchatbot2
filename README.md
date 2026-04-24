@@ -11,6 +11,15 @@ This is an AI-powered Election Assistant built with Google Cloud Run, FastAPI, R
 ## Architecture
 The application features a decoupled architecture with a React frontend for the user interface and a Python FastAPI backend for handling logic and API requests. Google Secret Manager is utilized to securely store and access sensitive environment variables.
 
+```mermaid
+graph TD;
+    A[User Browser] -->|HTTPS| B(React Frontend);
+    B -->|API Calls| C(FastAPI Backend);
+    C -->|gRPC/HTTP| D{Vertex AI};
+    C -->|HTTP| E{Google Maps API};
+    C -->|gRPC/HTTP| F{Google Cloud Firestore};
+```
+
 ## Local Setup
 1. Install backend dependencies: `cd backend && python -m venv venv && source venv/bin/activate && pip install -r requirements.txt` (or `venv\Scripts\activate` on Windows).
 2. Install frontend dependencies: `cd frontend && npm install`.

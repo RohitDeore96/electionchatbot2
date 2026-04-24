@@ -32,3 +32,15 @@ def test_chat_with_agent_exception(mock_get_response, client):
     response = client.post("/api/ai/chat", json={"message": "how to vote?"})
     assert response.status_code == 500
     assert "Test exception" in response.json()["detail"]
+
+def test_chat_with_agent_empty_message(client):
+    response = client.post("/api/ai/chat", json={"message": ""})
+    assert response.status_code == 422
+
+@patch('app.routes.ai_routes.ai_agent.get_response')
+def test_chat_rate_limit(mock_get_response, client):
+    mock_get_response.return_value = "response"
+    for _ in range(10):
+        client.post("/api/ai/chat", json={"message": "hi"})
+    response = client.post("/api/ai/chat", json={"message": "hi"})
+    assert response.status_code == 429
