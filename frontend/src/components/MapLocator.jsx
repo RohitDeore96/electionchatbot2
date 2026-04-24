@@ -13,6 +13,32 @@ const center = {
   lng: -77.0365
 };
 
+function MapWrapper({ apiKey }) {
+  const { isLoaded } = useJsApiLoader({
+    id: 'google-map-script',
+    googleMapsApiKey: apiKey,
+  });
+
+  if (!isLoaded) {
+    return (
+      <div className="text-center p-4">
+        <MapPin className="mx-auto h-8 w-8 text-gray-400 mb-2" />
+        <p className="text-sm text-gray-500">Loading Google Maps...</p>
+      </div>
+    );
+  }
+
+  return (
+    <GoogleMap
+      mapContainerStyle={mapContainerStyle}
+      center={center}
+      zoom={10}
+    >
+      <Marker position={center} />
+    </GoogleMap>
+  );
+}
+
 export default function MapLocator() {
   const [address, setAddress] = useState('');
   const [result, setResult] = useState(null);
@@ -26,11 +52,6 @@ export default function MapLocator() {
       }
     }).catch(err => console.error("Failed to load map key", err));
   }, []);
-
-  const { isLoaded } = useJsApiLoader({
-    id: 'google-map-script',
-    googleMapsApiKey: apiKey || "",
-  });
 
   const handleSearch = async (e) => {
     e.preventDefault();
@@ -102,18 +123,10 @@ export default function MapLocator() {
           aria-label="Interactive map"
           style={{ height: '400px' }}
         >
-          {isLoaded && apiKey ? (
-            <GoogleMap
-              mapContainerStyle={mapContainerStyle}
-              center={center}
-              zoom={10}
-            >
-              <Marker position={center} />
-            </GoogleMap>
-          ) : (
+          {apiKey ? <MapWrapper apiKey={apiKey} /> : (
             <div className="text-center p-4">
               <MapPin className="mx-auto h-8 w-8 text-gray-400 mb-2" />
-              <p className="text-sm text-gray-500">Loading Google Maps...</p>
+              <p className="text-sm text-gray-500">Loading Google Maps API Key...</p>
             </div>
           )}
         </div>
