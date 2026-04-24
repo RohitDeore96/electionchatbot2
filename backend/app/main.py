@@ -2,6 +2,7 @@ import os
 from fastapi import FastAPI, Request
 from fastapi.staticfiles import StaticFiles
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.middleware.gzip import GZipMiddleware
 from app.routes import civic_routes, ai_routes, map_routes
 from app.utils.security import add_security_headers
 from app.utils.limiter import limiter
@@ -13,6 +14,15 @@ app = FastAPI(title="Election Assistant API")
 app.state.limiter = limiter
 app.add_exception_handler(RateLimitExceeded, _rate_limit_exceeded_handler)
 app.add_middleware(SlowAPIMiddleware)
+app.add_middleware(GZipMiddleware, minimum_size=1000)
+
+import logging
+try:
+    import google.cloud.logging
+    client = google.cloud.logging.Client()
+    client.setup_logging()
+except ImportError:
+    logging.basicConfig(level=logging.INFO)
 
 # Gracefully handle missing environment variables to prevent startup crashes
 port = int(os.environ.get("PORT", 8080))

@@ -11,4 +11,12 @@
   body {
     @apply bg-gray-50 text-gray-900 antialiased;
   }
+  
+  button:focus-visible, 
+  a:focus-visible, 
+  input:focus-visible, 
+  textarea:focus-visible {
+    outline: 3px solid var(--color-primary);
+    outline-offset: 2px;
+  }
 }

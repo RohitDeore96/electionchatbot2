@@ -22,7 +22,7 @@ function MapWrapper({ apiKey }) {
   if (!isLoaded) {
     return (
       <div className="text-center p-4">
-        <MapPin className="mx-auto h-8 w-8 text-gray-400 mb-2" />
+        <MapPin className="mx-auto h-8 w-8 text-gray-400 mb-2" aria-hidden="true" />
         <p className="text-sm text-gray-500">Loading Google Maps...</p>
       </div>
     );
@@ -125,7 +125,7 @@ export default function MapLocator() {
         >
           {apiKey ? <MapWrapper apiKey={apiKey} /> : (
             <div className="text-center p-4">
-              <MapPin className="mx-auto h-8 w-8 text-gray-400 mb-2" />
+              <MapPin className="mx-auto h-8 w-8 text-gray-400 mb-2" aria-hidden="true" />
               <p className="text-sm text-gray-500">Loading Google Maps API Key...</p>
             </div>
           )}

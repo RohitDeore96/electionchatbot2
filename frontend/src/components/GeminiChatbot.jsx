@@ -102,7 +102,7 @@ export default function GeminiChatbot() {
             className="absolute right-2 bottom-1.5 p-1.5 rounded-lg text-white bg-primary hover:bg-primary-dark focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary disabled:opacity-50 transition-colors"
             aria-label="Send message"
           >
-            <Send className="w-4 h-4" />
+            <Send className="w-4 h-4" aria-hidden="true" />
           </button>
         </form>
       </div>
