@@ -18,12 +18,12 @@ function App() {
       <section className="max-w-5xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-8" aria-label="Main Content">
         <article className="space-y-8">
           <VotingTimeline />
-          <Suspense fallback={<div>Loading Map...</div>}>
+          <Suspense fallback={<div role="status" aria-busy="true">Loading Map...</div>}>
             <MapLocator />
           </Suspense>
         </article>
         <aside>
-          <Suspense fallback={<div>Loading Chatbot...</div>}>
+          <Suspense fallback={<div role="status" aria-busy="true">Loading Chatbot...</div>}>
             <GeminiChatbot />
           </Suspense>
         </aside>
