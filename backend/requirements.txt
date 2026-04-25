@@ -18,5 +18,5 @@ httpx>=0.28.1
 secure==0.3.0
 googlemaps==4.10.0
 slowapi==0.1.9
-python-multipart==0.0.9
-cryptography==42.0.5
+python-multipart==0.0.12
+cryptography==43.0.1
