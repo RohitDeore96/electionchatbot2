@@ -9,7 +9,7 @@ import logging
 
 logger = logging.getLogger(__name__)
 
-MODEL_NAME = os.environ.get("VERTEX_AI_MODEL_NAME", "gemini-2.5-flash")
+from app.constants import MODEL_NAME
 LOCATION = os.environ.get("VERTEX_AI_LOCATION", "us-central1")
 
 

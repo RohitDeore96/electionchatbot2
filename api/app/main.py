@@ -16,9 +16,7 @@ from slowapi import _rate_limit_exceeded_handler
 from slowapi.errors import RateLimitExceeded
 from slowapi.middleware import SlowAPIMiddleware
 
-API_TITLE = "Election Assistant API"
-GZIP_MIN_SIZE = 1000
-DEFAULT_PORT = 8000
+from app.constants import API_TITLE, GZIP_MIN_SIZE, DEFAULT_PORT
 ALLOWED_ORIGINS = ["http://localhost:5173", "https://YOUR_ACTUAL_FRONTEND_URL"]
 
 app = FastAPI(

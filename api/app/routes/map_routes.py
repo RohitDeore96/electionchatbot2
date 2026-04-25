@@ -6,8 +6,7 @@ from fastapi import APIRouter, Response
 import os
 from typing import Dict
 
-CACHE_CONTROL = "public, max-age=300"
-MAPS_API_ENV_KEY = "Maps_API_KEY"
+from app.constants import CACHE_CONTROL_PUBLIC, MAPS_API_ENV_KEY
 
 router = APIRouter()
 
@@ -23,7 +22,7 @@ async def get_map_key(response: Response) -> Dict[str, str]:
     Returns:
         Dict[str, str]: A dictionary containing the Google Maps API key.
     """
-    response.headers["Cache-Control"] = CACHE_CONTROL
+    response.headers["Cache-Control"] = CACHE_CONTROL_PUBLIC
     return {"key": os.environ.get(MAPS_API_ENV_KEY, "")}
 
 
@@ -39,6 +38,6 @@ async def geocode_address(address: str, response: Response) -> Dict[str, float]:
     Returns:
         Dict[str, float]: A dictionary containing latitude and longitude.
     """
-    response.headers["Cache-Control"] = CACHE_CONTROL
+    response.headers["Cache-Control"] = CACHE_CONTROL_PUBLIC
     # Placeholder: Will be wired to Maps API
     return {"lat": 0.0, "lng": 0.0}

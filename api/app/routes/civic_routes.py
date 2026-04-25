@@ -5,7 +5,7 @@ Supplies polling and registration details endpoints.
 from fastapi import APIRouter, Response
 from typing import Dict, Any
 
-CACHE_CONTROL = "public, max-age=300"
+from app.constants import CACHE_CONTROL_PUBLIC
 
 router = APIRouter()
 
@@ -22,6 +22,6 @@ async def get_voter_info(address: str, response: Response) -> Dict[str, Any]:
     Returns:
         Dict[str, Any]: A dictionary containing voter info.
     """
-    response.headers["Cache-Control"] = CACHE_CONTROL
+    response.headers["Cache-Control"] = CACHE_CONTROL_PUBLIC
     # Placeholder: Will be wired to Google Civic Information API
     return {"status": "success", "address": address, "elections": []}

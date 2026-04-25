@@ -10,9 +10,10 @@ import logging
 from datetime import datetime, timezone
 import os
 from typing import Dict
-from app.utils.ai_helper import generate_ai_response
+from app.constants import RATE_LIMIT_CHAT
+from app.utils.ai_helper import generate_ai_response, format_ai_payload
 
-RATE_LIMIT_CHAT = "10/minute"
+
 from app.services.firestore_service import log_chat_to_firestore
 
 logger = logging.getLogger(__name__)
@@ -49,4 +50,4 @@ async def chat_with_agent(
         log_chat_to_firestore, payload.message, datetime.now(timezone.utc)
     )
     response_text = generate_ai_response(ai_agent, payload.message)
-    return {"response": response_text}
+    return format_ai_payload(response_text)

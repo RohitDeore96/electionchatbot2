@@ -6,9 +6,7 @@ import os
 from datetime import datetime
 from typing import Dict, List, Any, Optional
 
-FIRESTORE_COLLECTION = "chat_logs"
-MOCK_ENV_VAR = "MOCK_FIRESTORE"
-TRUE_STR = "true"
+from app.constants import FIRESTORE_COLLECTION, MOCK_FIRESTORE_ENV, TRUE_STR
 
 logger = logging.getLogger(__name__)
 
@@ -16,7 +14,7 @@ logger = logging.getLogger(__name__)
 try:
     from google.cloud import firestore
 
-    if os.environ.get(MOCK_ENV_VAR) != TRUE_STR:
+    if os.environ.get(MOCK_FIRESTORE_ENV) != TRUE_STR:
         db: Optional[Any] = firestore.Client()
     else:
         db = None
