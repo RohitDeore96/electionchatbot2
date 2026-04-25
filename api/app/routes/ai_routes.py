@@ -13,45 +13,17 @@ from typing import Dict
 from app.utils.ai_helper import generate_ai_response
 
 RATE_LIMIT_CHAT = "10/minute"
-FIRESTORE_COLLECTION = "chat_logs"
-MOCK_ENV_VAR = "MOCK_FIRESTORE"
-TRUE_STR = "true"
+from app.services.firestore_service import log_chat_to_firestore
 
 logger = logging.getLogger(__name__)
 
 router = APIRouter()
 ai_agent = VertexAIAgent()
 
-try:
-    from google.cloud import firestore
-
-    if os.environ.get(MOCK_ENV_VAR) != TRUE_STR:
-        db = firestore.Client()
-    else:
-        db = None
-except ImportError:
-    db = None
-
-
 class ChatRequest(BaseModel):
     message: str = Field(..., min_length=1, max_length=1000)
 
 
-def log_chat_to_firestore(message: str, timestamp: datetime) -> None:
-    """
-    Asynchronously record the conversation prompt and time within the database.
-
-    Args:
-        message (str): The user's input message.
-        timestamp (datetime): The UTC timestamp of the chat request.
-    """
-    if db:
-        try:
-            db.collection(FIRESTORE_COLLECTION).add({"message": message, "timestamp": timestamp})  # noqa: E501
-        except Exception as e:
-            logger.error(f"Failed to log chat to Firestore: {e}")
-    else:
-        logger.info(f"Mock Firestore log: message='{message}' at {timestamp}")
 
 
 @router.post("/chat")
