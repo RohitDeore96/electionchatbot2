@@ -1,1 +1,3 @@
-# This file makes app a Python package
+"""
+Main application package.
+"""

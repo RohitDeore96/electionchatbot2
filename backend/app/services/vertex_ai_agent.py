@@ -1,3 +1,7 @@
+"""
+Service for interacting with Google Cloud Vertex AI.
+Provides the VertexAIAgent class for handling chatbot interactions.
+"""
 import vertexai
 from vertexai.generative_models import GenerativeModel
 import os
@@ -10,7 +14,12 @@ LOCATION = os.environ.get("VERTEX_AI_LOCATION", "us-central1")
 
 
 class VertexAIAgent:
+    """
+    Agent for communicating with Vertex AI models.
+    """
+
     def __init__(self) -> None:
+        """Initialize the Vertex AI agent with configuration."""
         self.project = os.environ.get("VERTEX_AI_PROJECT_ID") or os.environ.get(  # noqa: E501
             "GOOGLE_CLOUD_PROJECT", "election2-494404"
         )
@@ -25,6 +34,7 @@ class VertexAIAgent:
         self.init_error = None
 
     def _init_model(self) -> None:
+        """Initialize the GenerativeModel if not already loaded."""
         if not self.model:
             try:
                 vertexai.init(project=self.project, location=self.location)
@@ -37,6 +47,15 @@ class VertexAIAgent:
                 self.model = None
 
     def get_response(self, query: str) -> str:
+        """
+        Get a response from the Vertex AI model.
+
+        Args:
+            query (str): The user's input query.
+
+        Returns:
+            str: The AI model's response or an error message.
+        """
         self._init_model()
         if not self.model:
             return f"Vertex AI Init Error: {self.init_error}"

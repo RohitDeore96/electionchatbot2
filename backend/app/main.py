@@ -1,3 +1,7 @@
+"""
+Main application module for the Election Assistant backend.
+Initializes FastAPI, middlewares, and routes.
+"""
 import os
 import logging
 from typing import Callable, Awaitable, Dict
@@ -12,13 +16,18 @@ from slowapi import _rate_limit_exceeded_handler
 from slowapi.errors import RateLimitExceeded
 from slowapi.middleware import SlowAPIMiddleware
 
+API_TITLE = "Election Assistant API"
+GZIP_MIN_SIZE = 1000
+DEFAULT_PORT = 8080
+ALLOWED_ORIGINS = ["http://localhost:5173", "https://YOUR_ACTUAL_FRONTEND_URL"]
+
 app = FastAPI(
-    title="Election Assistant API", docs_url=None, redoc_url=None, openapi_url=None
+    title=API_TITLE, docs_url=None, redoc_url=None, openapi_url=None
 )  # noqa: E501
 app.state.limiter = limiter
 app.add_exception_handler(RateLimitExceeded, _rate_limit_exceeded_handler)
 app.add_middleware(SlowAPIMiddleware)
-app.add_middleware(GZipMiddleware, minimum_size=1000)
+app.add_middleware(GZipMiddleware, minimum_size=GZIP_MIN_SIZE)
 
 
 try:
@@ -30,14 +39,14 @@ except ImportError:
     logging.basicConfig(level=logging.INFO)
 
 # Gracefully handle missing environment variables to prevent startup crashes
-port = int(os.environ.get("PORT", 8080))
+port = int(os.environ.get("PORT", DEFAULT_PORT))
 maps_api_key = os.environ.get("Maps_API_KEY", "")
 civic_info_api_key = os.environ.get("CIVIC_INFO_API_KEY", "")
 
 # Security: Strict CORS
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:5173", "https://YOUR_ACTUAL_FRONTEND_URL"],
+    allow_origins=ALLOWED_ORIGINS,
     allow_credentials=True,
     allow_methods=["GET", "POST", "OPTIONS"],
     allow_headers=["*"],
@@ -88,5 +97,6 @@ if __name__ == "__main__":  # pragma: no cover
     import os
     import uvicorn
 
-    # Hardcode bind to 0.0.0.0:8080 as requested to avoid Cloud Run conflicts  # noqa: E501
-    uvicorn.run(app, host="0.0.0.0", port=port)
+    # Hardcode bind to BIND_HOST as requested to avoid Cloud Run conflicts  # noqa: E501
+    BIND_HOST = "0.0.0.0"
+    uvicorn.run(app, host=BIND_HOST, port=port)

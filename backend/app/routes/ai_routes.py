@@ -1,3 +1,7 @@
+"""
+AI Chatbot routes for the Election Assistant API.
+Provides endpoints for interacting with the Vertex AI Gemini model.
+"""
 from fastapi import APIRouter, Request, BackgroundTasks
 from pydantic import BaseModel, Field
 from app.services.vertex_ai_agent import VertexAIAgent
@@ -8,6 +12,11 @@ import os
 from typing import Dict
 from app.utils.ai_helper import generate_ai_response
 
+RATE_LIMIT_CHAT = "10/minute"
+FIRESTORE_COLLECTION = "chat_logs"
+MOCK_ENV_VAR = "MOCK_FIRESTORE"
+TRUE_STR = "true"
+
 logger = logging.getLogger(__name__)
 
 router = APIRouter()
@@ -16,7 +25,7 @@ ai_agent = VertexAIAgent()
 try:
     from google.cloud import firestore
 
-    if os.environ.get("MOCK_FIRESTORE") != "true":
+    if os.environ.get(MOCK_ENV_VAR) != TRUE_STR:
         db = firestore.Client()
     else:
         db = None
@@ -38,7 +47,7 @@ def log_chat_to_firestore(message: str, timestamp: datetime) -> None:
     """
     if db:
         try:
-            db.collection("chat_logs").add({"message": message, "timestamp": timestamp})  # noqa: E501
+            db.collection(FIRESTORE_COLLECTION).add({"message": message, "timestamp": timestamp})  # noqa: E501
         except Exception as e:
             logger.error(f"Failed to log chat to Firestore: {e}")
     else:
@@ -46,7 +55,7 @@ def log_chat_to_firestore(message: str, timestamp: datetime) -> None:
 
 
 @router.post("/chat")
-@limiter.limit("10/minute")
+@limiter.limit(RATE_LIMIT_CHAT)
 async def chat_with_agent(
     request: Request, payload: ChatRequest, background_tasks: BackgroundTasks
 ) -> Dict[str, str]:
@@ -59,7 +68,7 @@ async def chat_with_agent(
         background_tasks (BackgroundTasks): FastAPI background tasks.
 
     Returns:
-        dict: A dictionary containing the AI response.
+        Dict[str, str]: A dictionary containing the AI response.
 
     Raises:
         HTTPException: If generating the AI response fails.

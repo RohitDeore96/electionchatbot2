@@ -1,3 +1,7 @@
+"""
+AI Helper utility.
+Provides functions for formatting and generating AI responses.
+"""
 from app.services.vertex_ai_agent import VertexAIAgent
 from fastapi import HTTPException
 import logging

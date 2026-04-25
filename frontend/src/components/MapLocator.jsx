@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import PropTypes from 'prop-types';
 import { Search, MapPin } from 'lucide-react';
 import { fetchVoterInfo, fetchMapKey } from '../services/apiClient';
 import { GoogleMap, useJsApiLoader, Marker } from '@react-google-maps/api';
@@ -44,6 +45,10 @@ function MapWrapper({ apiKey }) {
     </GoogleMap>
   );
 }
+
+MapWrapper.propTypes = {
+  apiKey: PropTypes.string.isRequired,
+};
 
 /**
  * MapLocator component for finding polling locations.

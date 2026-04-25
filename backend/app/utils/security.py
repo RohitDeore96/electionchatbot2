@@ -1,3 +1,6 @@
+"""
+Security utility functions for the backend API.
+"""
 from fastapi import Request, Response
 from typing import Callable, Awaitable
 
