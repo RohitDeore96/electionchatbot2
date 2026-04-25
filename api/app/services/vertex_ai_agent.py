@@ -4,6 +4,7 @@ Provides the VertexAIAgent class for handling chatbot interactions.
 """
 import vertexai
 from vertexai.generative_models import GenerativeModel
+from typing import Optional, List, Dict, Any, Union, Callable
 import os
 import logging
 
@@ -30,8 +31,8 @@ class VertexAIAgent:
             "locations. You must refuse to answer any questions unrelated "
             "to voting or elections."
         )
-        self.model = None
-        self.init_error = None
+        self.model: Optional[GenerativeModel] = None
+        self.init_error: Optional[str] = None
 
     def _init_model(self) -> None:
         """Initialize the GenerativeModel if not already loaded."""
