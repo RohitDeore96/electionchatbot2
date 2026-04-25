@@ -33,7 +33,7 @@ class VertexAIAgent:
             None
         """
         self.project = os.environ.get("VERTEX_AI_PROJECT_ID") or os.environ.get(  # noqa: E501
-            "GOOGLE_CLOUD_PROJECT", "election2-494404"
+            "GOOGLE_CLOUD_PROJECT", "electionchatbot2"
         )
         self.location = LOCATION
         self.system_instruction = (
