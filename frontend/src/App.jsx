@@ -15,19 +15,19 @@ function App() {
         <h1 className="text-4xl font-extrabold text-neutral-dark tracking-tight mb-2">Election Assistant</h1>
         <p className="text-lg text-gray-700">Your interactive guide to the election process.</p>
       </header>
-      <div className="max-w-5xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-8">
-        <div className="space-y-8">
+      <section className="max-w-5xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-8" aria-label="Main Content">
+        <article className="space-y-8">
           <VotingTimeline />
           <Suspense fallback={<div>Loading Map...</div>}>
             <MapLocator />
           </Suspense>
-        </div>
-        <div>
+        </article>
+        <aside>
           <Suspense fallback={<div>Loading Chatbot...</div>}>
             <GeminiChatbot />
           </Suspense>
-        </div>
-      </div>
+        </aside>
+      </section>
     </main>
   );
 }
