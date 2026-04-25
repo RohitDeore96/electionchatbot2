@@ -41,5 +41,8 @@ def format_ai_payload(response_text: str) -> Dict[str, str]:
 
     Returns:
         Dict[str, str]: The formatted dictionary payload.
+        
+    Raises:
+        None
     """
     return {"response": response_text}

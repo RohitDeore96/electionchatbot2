@@ -21,6 +21,9 @@ class FirestoreClient:
 
         Returns:
             Dict[str, str]: A dictionary of user preferences.
+            
+        Raises:
+            None
         """
         return {"language": "en"}
 
@@ -31,5 +34,11 @@ class FirestoreClient:
         Args:
             session_id (str): The session ID.
             message (str): The chat message.
+            
+        Returns:
+            None
+            
+        Raises:
+            None
         """
         pass

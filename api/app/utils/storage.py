@@ -26,6 +26,9 @@ def upload_to_gcs(
 
     Returns:
         bool: True if upload was successful, False otherwise.
+        
+    Raises:
+        None
     """
     if not storage_client:
         logger.warning("Google Cloud Storage client is not initialized.")

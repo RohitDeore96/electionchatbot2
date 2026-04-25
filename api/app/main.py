@@ -64,6 +64,9 @@ async def secure_headers(
 
     Returns:
         Response: The modified response containing security headers.
+
+    Raises:
+        None
     """
     return await add_security_headers(request, call_next)
 
@@ -81,6 +84,9 @@ def health_check() -> Dict[str, str]:
 
     Returns:
         Dict[str, str]: A dictionary containing the health status and a message.  # noqa: E501
+
+    Raises:
+        None
     """
     return {"status": "healthy", "message": "Election Assistant Backend Active"}
 

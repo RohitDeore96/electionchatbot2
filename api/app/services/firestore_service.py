@@ -31,6 +31,9 @@ def log_chat_to_firestore(message: str, timestamp: datetime) -> None:
 
     Returns:
         None
+        
+    Raises:
+        None
     """
     if db:
         try:

@@ -17,6 +17,9 @@ async def add_security_headers(
 
     Returns:
         The FastAPI response with appended security headers.
+        
+    Raises:
+        None
     """
     response: Response = await call_next(request)
     response.headers["Content-Security-Policy"] = (

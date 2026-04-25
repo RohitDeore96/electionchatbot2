@@ -20,7 +20,18 @@ class VertexAIAgent:
     """
 
     def __init__(self) -> None:
-        """Initialize the Vertex AI agent with configuration."""
+        """
+        Initialize the Vertex AI agent with configuration.
+
+        Args:
+            None
+
+        Returns:
+            None
+
+        Raises:
+            None
+        """
         self.project = os.environ.get("VERTEX_AI_PROJECT_ID") or os.environ.get(  # noqa: E501
             "GOOGLE_CLOUD_PROJECT", "election2-494404"
         )
@@ -35,7 +46,18 @@ class VertexAIAgent:
         self.init_error: Optional[str] = None
 
     def _init_model(self) -> None:
-        """Initialize the GenerativeModel if not already loaded."""
+        """
+        Initialize the GenerativeModel if not already loaded.
+
+        Args:
+            None
+
+        Returns:
+            None
+
+        Raises:
+            Exception: Caught internally if model initialization fails.
+        """
         if not self.model:
             try:
                 vertexai.init(project=self.project, location=self.location)
@@ -56,6 +78,9 @@ class VertexAIAgent:
 
         Returns:
             str: The AI model's response or an error message.
+
+        Raises:
+            None
         """
         self._init_model()
         if not self.model:

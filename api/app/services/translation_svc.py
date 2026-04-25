@@ -17,6 +17,9 @@ class TranslationService:
 
         Returns:
             str: The translated text.
+            
+        Raises:
+            None
         """
         # Mocked Translation API
         return text

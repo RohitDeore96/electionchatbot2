@@ -22,6 +22,9 @@ router = APIRouter()
 ai_agent = VertexAIAgent()
 
 class ChatRequest(BaseModel):
+    """
+    Data model for incoming chat requests.
+    """
     message: str = Field(..., min_length=1, max_length=1000)
 
 

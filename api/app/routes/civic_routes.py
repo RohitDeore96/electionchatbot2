@@ -21,6 +21,9 @@ async def get_voter_info(address: str, response: Response) -> Dict[str, Union[st
 
     Returns:
         Dict[str, Union[str, List[Any]]]: A dictionary containing voter info.
+        
+    Raises:
+        None
     """
     response.headers["Cache-Control"] = CACHE_CONTROL_PUBLIC
     elections: List[Dict[str, str]] = []
