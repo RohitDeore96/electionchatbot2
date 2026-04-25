@@ -53,7 +53,6 @@ app.add_middleware(
 )
 
 
-
 @app.middleware("http")
 async def secure_headers(
     request: Request, call_next: Callable[[Request], Awaitable[Response]]

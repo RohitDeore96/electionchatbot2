@@ -68,7 +68,9 @@ def test_get_map_key(client: TestClient) -> None:
 
 
 @patch("app.routes.ai_routes.ai_agent.get_response")
-def test_chat_with_agent_exception(mock_get_response: MagicMock, client: TestClient) -> None:
+def test_chat_with_agent_exception(
+    mock_get_response: MagicMock, client: TestClient
+) -> None:
     """
     Test the AI chat endpoint exception handling.
 

@@ -46,7 +46,9 @@ def test_translation_svc() -> None:
 
 @patch("app.services.vertex_ai_agent.vertexai")
 @patch("app.services.vertex_ai_agent.GenerativeModel")
-def test_vertex_ai_agent_exceptions(mock_gen_model: MagicMock, mock_vertexai: MagicMock) -> None:
+def test_vertex_ai_agent_exceptions(
+    mock_gen_model: MagicMock, mock_vertexai: MagicMock
+) -> None:
     """
     Test the Vertex AI Agent exception handling.
 
@@ -59,7 +61,8 @@ def test_vertex_ai_agent_exceptions(mock_gen_model: MagicMock, mock_vertexai: Ma
 
     # Test initialization exception
     mock_vertexai.init.side_effect = Exception("init error")
-    assert "I'm sorry" in agent.get_response("test") or "Error" in agent.get_response("test")
+    res = agent.get_response("test")
+    assert "I'm sorry" in res or "Error" in res
 
     # Test chat exception
     mock_vertexai.init.side_effect = None

@@ -4,6 +4,7 @@ Provides the FirestoreClient class.
 """
 from typing import Dict
 
+
 class FirestoreClient:
     """Mock client for Google Cloud Firestore."""
 

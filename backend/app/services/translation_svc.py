@@ -3,6 +3,7 @@ Translation service utility.
 Provides the TranslationService class for text translation.
 """
 
+
 class TranslationService:
     """Service to handle text translation."""
 
