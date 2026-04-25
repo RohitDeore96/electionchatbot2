@@ -1,5 +1,5 @@
 """
-Security utility functions for the backend API.
+Middleware operations for robust API security management.
 """
 from fastapi import Request, Response
 from typing import Callable, Awaitable
@@ -9,7 +9,7 @@ async def add_security_headers(
     request: Request, call_next: Callable[[Request], Awaitable[Response]]
 ) -> Response:
     """
-    Add strict security headers to the response.
+    Attach defense-in-depth HTTP headers to the outgoing transaction.
 
     Args:
         request: The incoming FastAPI request.

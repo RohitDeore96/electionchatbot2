@@ -1,5 +1,5 @@
 /**
- * Fetches voter information based on the provided address.
+ * Retrieve voting details from the civic infrastructure layer.
  * @param {string} address - The voter's address.
  * @returns {Promise<Object>} The voter info response.
  */
@@ -9,7 +9,7 @@ export const fetchVoterInfo = async (address) => {
 };
 
 /**
- * Sends a chat message to the AI assistant.
+ * Transmit natural language prompts to the Vertex AI service.
  * @param {string} message - The message to send.
  * @returns {Promise<Object>} The AI response.
  */
@@ -23,7 +23,7 @@ export const sendChatMessage = async (message) => {
 };
 
 /**
- * Fetches the Google Maps API key from the backend.
+ * Request the Google Maps authorization string from the secure backend layer.
  * @returns {Promise<Object>} The API key response.
  */
 export const fetchMapKey = async () => {

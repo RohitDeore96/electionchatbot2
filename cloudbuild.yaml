@@ -22,7 +22,7 @@ steps:
       - 'managed'
       - '--allow-unauthenticated'
       - '--port'
-      - '8080'
+      - '8000'
       - '--set-secrets'
       - 'Maps_API_KEY=Maps_API_KEY:latest,CIVIC_INFO_API_KEY=CIVIC_INFO_API_KEY:latest'
 

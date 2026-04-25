@@ -1,6 +1,6 @@
 """
-Map routes for the Election Assistant API.
-Provides endpoints for fetching map API keys and geocoding.
+Spatial routing and geolocation handlers for the platform.
+Delivers keys and coordinates securely.
 """
 from fastapi import APIRouter, Response
 import os
@@ -15,7 +15,7 @@ router = APIRouter()
 @router.get("/key")
 async def get_map_key(response: Response) -> Dict[str, str]:
     """
-    Returns the Google Maps API key securely at runtime.
+    Serve the Google Maps authorization token securely during execution.
 
     Args:
         response (Response): The FastAPI response object.
@@ -30,7 +30,7 @@ async def get_map_key(response: Response) -> Dict[str, str]:
 @router.get("/geocode")
 async def geocode_address(address: str, response: Response) -> Dict[str, float]:  # noqa: E501
     """
-    Geocode address using Google Maps API.
+    Translate a string address into geospatial coordinates via Google Maps.
 
     Args:
         address (str): The address to geocode.

@@ -3,8 +3,8 @@ import { sendChatMessage } from '../services/apiClient';
 import { Send, Bot } from 'lucide-react';
 
 /**
- * Chatbot component for Gemini AI.
- * @returns {React.JSX.Element} The rendered GeminiChatbot component.
+ * Primary interface for the Gemini AI virtual assistant.
+ * @returns {React.JSX.Element} The rendered AI conversational UI component.
  */
 export default function GeminiChatbot() {
   const [input, setInput] = useState('');
@@ -14,7 +14,7 @@ export default function GeminiChatbot() {
   const [isTyping, setIsTyping] = useState(false);
   const endOfMessagesRef = useRef(null);
 
-  // Auto-scroll to bottom
+  // Automatically scroll view to the latest message
   useEffect(() => {
     endOfMessagesRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, [messages, isTyping]);

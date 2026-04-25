@@ -1,6 +1,6 @@
 """
-Main application module for the Election Assistant backend.
-Initializes FastAPI, middlewares, and routes.
+Core entry point for the backend server logic.
+Bootstraps the FastAPI framework, networking rules, and sub-routers.
 """
 import os
 import logging
@@ -18,7 +18,7 @@ from slowapi.middleware import SlowAPIMiddleware
 
 API_TITLE = "Election Assistant API"
 GZIP_MIN_SIZE = 1000
-DEFAULT_PORT = 8080
+DEFAULT_PORT = 8000
 ALLOWED_ORIGINS = ["http://localhost:5173", "https://YOUR_ACTUAL_FRONTEND_URL"]
 
 app = FastAPI(
@@ -38,7 +38,7 @@ try:
 except ImportError:
     logging.basicConfig(level=logging.INFO)
 
-# Gracefully handle missing environment variables to prevent startup crashes
+# Fail-safe variable parsing to avoid immediate boot panics
 port = int(os.environ.get("PORT", DEFAULT_PORT))
 maps_api_key = os.environ.get("Maps_API_KEY", "")
 civic_info_api_key = os.environ.get("CIVIC_INFO_API_KEY", "")
@@ -58,7 +58,7 @@ async def secure_headers(
     request: Request, call_next: Callable[[Request], Awaitable[Response]]
 ) -> Response:
     """
-    Middleware to apply strict security headers to all HTTP responses.
+    HTTP response middleware to inject mandatory OWASP security headers.
 
     Args:
         request (Request): The incoming FastAPI request.
@@ -79,7 +79,7 @@ app.include_router(map_routes.router, prefix="/api/map", tags=["Maps"])
 @app.get("/health")
 def health_check() -> Dict[str, str]:
     """
-    Perform a health check to verify the API is active.
+    Verification endpoint to ensure the system is operational.
 
     Returns:
         Dict[str, str]: A dictionary containing the health status and a message.  # noqa: E501
@@ -87,8 +87,8 @@ def health_check() -> Dict[str, str]:
     return {"status": "healthy", "message": "Election Assistant Backend Active"}
 
 
-# Mount React Frontend (MUST be after API routes to avoid catching /api requests)  # noqa: E501
-frontend_path = "../frontend/dist"
+# Serve Static Application Files (executed after API routes to avoid greedy catching)  # noqa: E501
+frontend_path = "../client/dist"
 if os.path.exists(frontend_path):
     app.mount("/", StaticFiles(directory=frontend_path, html=True), name="static")  # noqa: E501
 

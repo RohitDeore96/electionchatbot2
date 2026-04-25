@@ -1,6 +1,6 @@
 """
-Civic Information routes for the Election Assistant API.
-Provides endpoints for fetching voter information.
+Router for civic engagement data retrieval.
+Supplies polling and registration details endpoints.
 """
 from fastapi import APIRouter, Response
 from typing import Dict, Any
@@ -13,7 +13,7 @@ router = APIRouter()
 @router.get("/voter-info")
 async def get_voter_info(address: str, response: Response) -> Dict[str, Any]:
     """
-    Fetch voter info from Google Civic API.
+    Query the Google Civic Information service for localized voter data.
 
     Args:
         address (str): The address of the voter.

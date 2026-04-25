@@ -15,10 +15,10 @@ const center = {
 };
 
 /**
- * MapWrapper component for rendering the Google Map.
- * @param {Object} props - Component props.
- * @param {string} props.apiKey - Google Maps API Key.
- * @returns {React.JSX.Element} The rendered GoogleMap component.
+ * Wrapper for initializing and rendering the Google Map instance.
+ * @param {Object} props - The component parameters.
+ * @param {string} props.apiKey - The authentication key for Google Maps.
+ * @returns {React.JSX.Element} The instantiated GoogleMap view.
  */
 function MapWrapper({ apiKey }) {
   const { isLoaded } = useJsApiLoader({
@@ -51,8 +51,8 @@ MapWrapper.propTypes = {
 };
 
 /**
- * MapLocator component for finding polling locations.
- * @returns {React.JSX.Element} The rendered MapLocator component.
+ * Primary component for determining and displaying voting stations.
+ * @returns {React.JSX.Element} The rendered polling location interface.
  */
 export default function MapLocator() {
   const [address, setAddress] = useState('');

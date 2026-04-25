@@ -1,6 +1,6 @@
 """
-AI Chatbot routes for the Election Assistant API.
-Provides endpoints for interacting with the Vertex AI Gemini model.
+Router defining logic for Vertex AI conversation endpoints.
+Acts as the communication bridge between user prompts and Gemini models.
 """
 from fastapi import APIRouter, Request, BackgroundTasks
 from pydantic import BaseModel, Field
@@ -39,7 +39,7 @@ class ChatRequest(BaseModel):
 
 def log_chat_to_firestore(message: str, timestamp: datetime) -> None:
     """
-    Log the user's chat prompt and timestamp to a Firestore collection.
+    Asynchronously record the conversation prompt and time within the database.
 
     Args:
         message (str): The user's input message.
@@ -60,7 +60,7 @@ async def chat_with_agent(
     request: Request, payload: ChatRequest, background_tasks: BackgroundTasks
 ) -> Dict[str, str]:
     """
-    Interact with Vertex AI Gemini 1.5 Flash and log prompt to Firestore.
+    Process incoming chat messages via Gemini 1.5 Flash and trigger background logging.
 
     Args:
         request (Request): The incoming FastAPI request.

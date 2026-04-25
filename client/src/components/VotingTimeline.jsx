@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 import { CheckCircle2, Circle } from 'lucide-react';
 
 /**
- * Component displaying the voting timeline.
- * @returns {React.JSX.Element} The rendered VotingTimeline component.
+ * Component responsible for rendering the sequential election events.
+ * @returns {React.JSX.Element} The interactive timeline interface.
  */
 export default function VotingTimeline() {
   const [activeStep, setActiveStep] = useState(0);
